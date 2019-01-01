@@ -11,6 +11,7 @@ public class LoggitorApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LoggitorApplication.class, args);
 		logger.info("Its Work !!!!!");
+		//ok
 	}
 
 }
