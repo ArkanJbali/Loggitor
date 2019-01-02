@@ -1,12 +1,12 @@
 package com.log.loggitor.domain;
 
 import javax.persistence.Entity;
-//import javax.persistence.FetchType;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-//import javax.persistence.JoinColumn;
-//import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class DefectInstance {
@@ -15,9 +15,9 @@ public class DefectInstance {
 	private long SeqID;
 	private long AppID,Def_id,Log_id;
 	
-//	@ManyToOne(fetch=FetchType.EAGER)
-//	@JoinColumn(name="app")
-//	private App app;
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="app")
+	private App app;
 	
 
 	public DefectInstance() {
@@ -50,10 +50,10 @@ public class DefectInstance {
 	public void setLog_id(long log_id) {
 		Log_id = log_id;
 	}
-//	public App getApp() {
-//		return app;
-//	}
-//	public void setApp(App app) {
-//		this.app = app;
-//	}
+	public App getApp() {
+		return app;
+	}
+	public void setApp(App app) {
+		this.app = app;
+	}
 }

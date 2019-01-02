@@ -1,13 +1,13 @@
 package com.log.loggitor.domain;
 
-//import java.util.List;
+import java.util.List;
 
-//import javax.persistence.CascadeType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-//import javax.persistence.OneToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class App {
@@ -15,8 +15,8 @@ public class App {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long AppID;
 	private String AppName,AppType;
-//	@OneToMany(cascade=CascadeType.ALL,mappedBy="app")
-//	private List<DefectInstance> defeInstance;
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="app")
+	private List<DefectInstance> defeInstance;
 	public App() {
 		super();
 	}
@@ -42,12 +42,12 @@ public class App {
 	public void setAppType(String appType) {
 		AppType = appType;
 	}
-//	public List<DefectInstance> getDefeInstance() {
-//		return defeInstance;
-//	}
-//
-//	public void setDefeInstance(List<DefectInstance> defeInstance) {
-//		this.defeInstance = defeInstance;
-//	}
+	public List<DefectInstance> getDefeInstance() {
+		return defeInstance;
+	}
+
+	public void setDefeInstance(List<DefectInstance> defeInstance) {
+		this.defeInstance = defeInstance;
+	}
 	
 }
