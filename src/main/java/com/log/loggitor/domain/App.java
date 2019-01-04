@@ -26,6 +26,14 @@ public class App {
 		AppName = appName;
 		AppType = appType;
 	}
+	
+
+	public App(String appName, String appType, List<DefectInstance> defeInstance) {
+		super();
+		AppName = appName;
+		AppType = appType;
+		this.defeInstance = defeInstance;
+	}
 
 	public String getAppName() {
 		return AppName;

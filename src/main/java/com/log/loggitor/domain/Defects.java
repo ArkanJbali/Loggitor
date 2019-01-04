@@ -1,5 +1,6 @@
 package com.log.loggitor.domain;
 
+//JPA
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,15 +10,16 @@ public class Defects {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long Def_id;
-	private String Severity,error_code,D_sol;
+	private String Severity,error_code;
+	private long D_sol;
 	public Defects() {
 		super();
 	}
-	public Defects(String severity, String error_code, String d_sol) {
+	public Defects(String severity, String error_code, long D_sol) {
 		super();
 		Severity = severity;
 		this.error_code = error_code;
-		D_sol = d_sol;
+		this.D_sol = D_sol;
 	}
 
 	public String getSeverity() {
@@ -32,10 +34,10 @@ public class Defects {
 	public void setError_code(String error_code) {
 		this.error_code = error_code;
 	}
-	public String getD_sol() {
+	public long getD_sol() {
 		return D_sol;
 	}
-	public void setD_sol(String d_sol) {
+	public void setD_sol(long d_sol) {
 		D_sol = d_sol;
 	}
 	

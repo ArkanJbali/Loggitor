@@ -31,6 +31,15 @@ public class DefectInstance {
 		Log_id = log_id;
 		//this.app=app;
 	}
+	
+
+	public DefectInstance(long appID, long def_id, long log_id, App app) {
+		super();
+		AppID = appID;
+		Def_id = def_id;
+		Log_id = log_id;
+		this.app = app;
+	}
 
 	public long getAppID() {
 		return AppID;
