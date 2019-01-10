@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class App {
 	@Id
@@ -16,6 +19,8 @@ public class App {
 	private long AppID;
 	private String AppName,AppType;
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="app")
+	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  	@JsonIgnore
 	private List<DefectInstance> defeInstance;
 	public App() {
 		super();
@@ -57,5 +62,10 @@ public class App {
 	public void setDefeInstance(List<DefectInstance> defeInstance) {
 		this.defeInstance = defeInstance;
 	}
+
+	public long getAppID() {
+		return AppID;
+	}
+	
 	
 }

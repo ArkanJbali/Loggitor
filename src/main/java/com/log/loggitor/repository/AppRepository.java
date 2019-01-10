@@ -8,12 +8,11 @@ import org.springframework.data.repository.CrudRepository;
 import com.log.loggitor.domain.App;
 
 public interface AppRepository extends CrudRepository<App, Long>{
-	@Query(value="SELECT * FROM APP WHERE AppName=?1",nativeQuery=true)
+	@Query(value="SELECT * FROM APP a WHERE a.App_Name=?1",nativeQuery=true)
 		List<App> findByAppName(String appName);
-	@Query(value="select a.app_name,d.error_code as defect_num, "
-			+ "(count(a.app_name)*100/ (SELECT count(*) from public.app as aa)) as def\r\n" + 
-			"from public.defects as d,public.app as a, defect_instance as di \r\n" + 
-			"where a.appid=di.appid and di.def_id=d.def_id\r\n" + 
-			"group by a.app_name,d.error_code; ",nativeQuery=true)
+	@Query(value="select a.App_Name,d.error_code as defect_num, concat((count(a.App_Name)*100/ (SELECT count(*) from App)),' %') as def" + 
+			"			from Defects d,App a, Defect_Instance di" + 
+			"			where a.AppID=di.AppID and di.Def_id=d.Def_id" + 
+			"			group by a.App_Name,d.error_code",nativeQuery=true)
 	List<App> DefectsByApp();
 }

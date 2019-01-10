@@ -1,10 +1,20 @@
 package com.log.loggitor.domain;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 //JPA
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 public class Defects {
 	@Id
@@ -12,6 +22,14 @@ public class Defects {
 	private long Def_id;
 	private String Severity,error_code;
 	private long D_sol;
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="solution",referencedColumnName="SolutionID")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	private Solutions solution;
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="defect")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  	@JsonIgnore
+  	private List<DefectInstance> defeInstance;
 	public Defects() {
 		super();
 	}
@@ -40,5 +58,9 @@ public class Defects {
 	public void setD_sol(long d_sol) {
 		D_sol = d_sol;
 	}
+	public long getDef_id() {
+		return Def_id;
+	}
+	
 	
 }

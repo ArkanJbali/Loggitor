@@ -50,33 +50,48 @@ public class LoggitorApplication {
 	@Bean
 	CommandLineRunner runner(){
         return args -> {
-//    		//split the path to take the file name
-//			String fname="C:\\Users\\arkan\\Downloads\\log\\ARServer.log";
-//			String strFileName=fname.substring(fname.lastIndexOf("\\")+1);
-//			//LogReader that read the file
-//			LogReader lr=new LogReader();
-//			lr.ReadLog(fname);
-//			//get the errors list for doing the process
-//			ArrayList<String> errors=lr.getErrorList();
-//			//processing the errors list and storing them with counting
-//			LogProcess process=new LogProcess();
-//			//Log p=new Log();
-//			process.analyze(errors);
-//			//String severity=process.ErrorsPerAppSeverity();
-//			
-//			ArrayList<Log> plog=process.getErrorAll();
-//			FileRep.deleteAll();
-//			DefIRep.deleteAll();
-//			AppRep.deleteAll();
-//        	SolRep.deleteAll();
-//        	DefRep.deleteAll();
-//        	
-//			Date date=Calendar.getInstance().getTime();
-//			FileRep.save(new LogFile(strFileName, date));
-//			for(Log b:plog) {
-//				AppRep.save(new App(b.getErrorName(),b.getErrorType()));
-//				DefRep.save(new Defects(b.getAppSeverity(), b.getErrorNo(),1));
-//			}
+    		//split the path to take the file name
+			String fname="C:\\Users\\arkan\\Downloads\\log\\ARServer.log";
+			String strFileName=fname.substring(fname.lastIndexOf("\\")+1);
+			//LogReader that read the file
+			LogReader lr=new LogReader();
+			lr.ReadLog(fname);
+			//get the errors list for doing the process
+			ArrayList<String> errors=lr.getErrorList();
+			//processing the errors list and storing them with counting
+			LogProcess process=new LogProcess();
+			//Log p=new Log();
+			process.analyze(errors);
+			//String severity=process.ErrorsPerAppSeverity();
+			
+			ArrayList<Log> plog=process.getErrorAll();
+			FileRep.deleteAll();
+			DefIRep.deleteAll();
+			AppRep.deleteAll();
+        	SolRep.deleteAll();
+        	DefRep.deleteAll();
+        	
+			Date date=Calendar.getInstance().getTime();
+			LogFile logFile=new LogFile(strFileName, date);
+			FileRep.save(logFile);
+			Solutions sol1=new Solutions("Sol1","Def1");
+			SolRep.save(sol1);
+			Solutions sol2=new Solutions("Sol2","Def2");
+			SolRep.save(sol2);
+			for(Log b:plog) {
+				App app=new App(b.getErrorName(),b.getErrorType());
+				AppRep.save(app);
+				Defects defect = null;
+				if(b.getErrorName().equals("BL")) {
+				defect=new Defects(b.getAppSeverity(), b.getErrorNo(),sol1.getSolutionID());
+				}else if(b.getErrorName().equals("JF")){
+					defect=new Defects(b.getAppSeverity(), b.getErrorNo(),sol2.getSolutionID());
+				}
+				DefRep.save(defect);
+				//DefIRep.save(new DefectInstance(app.getAppID(), defect.getDef_id(), logFile.getFileID()));
+				DefIRep.save(new DefectInstance(app.getAppID(), defect.getDef_id(), logFile.getFileID(), app, defect, logFile));
+				
+			}
 
          //Save demo data to database
         //AppRep.save(new App("CM","Core"));
@@ -90,9 +105,10 @@ public class LoggitorApplication {
 //        	List<App> apps=AppRep.findByAppName("BL");
 //        	for(App bb:apps)
 //        		System.out.println(bb.getAppName()+" "+bb.getAppType());
-        	for(App app:AppRep.DefectsByApp()) {
-        		logger.info(app.getAppName());
-        	}
+//        	for(App app:AppRep.DefectsByApp()) {
+//        		logger.info(app.getAppID()+" "+app.getAppName());
+//        	}
+			
         };
       } 
 

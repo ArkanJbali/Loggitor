@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class DefectInstance {
 	@Id
@@ -16,10 +18,18 @@ public class DefectInstance {
 	private long AppID,Def_id,Log_id;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="app")
+	@JoinColumn(name="app",referencedColumnName="AppID")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private App app;
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="defect",referencedColumnName="Def_id")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	private Defects defect;
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="logFile",referencedColumnName="FileID")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	private LogFile logFile;
 	
-
 	public DefectInstance() {
 		super();
 	}
@@ -32,6 +42,16 @@ public class DefectInstance {
 		//this.app=app;
 	}
 	
+
+	public DefectInstance(long appID, long def_id, long log_id, App app, Defects defect, LogFile logFile) {
+		super();
+		AppID = appID;
+		Def_id = def_id;
+		Log_id = log_id;
+		this.app = app;
+		this.defect = defect;
+		this.logFile = logFile;
+	}
 
 	public DefectInstance(long appID, long def_id, long log_id, App app) {
 		super();
