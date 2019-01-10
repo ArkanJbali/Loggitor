@@ -17,15 +17,15 @@ public class DefectInstance {
 	private long SeqID;
 	private long AppID,Def_id,Log_id;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="app",referencedColumnName="AppID")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private App app;
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="defect",referencedColumnName="Def_id")
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Defects defect;
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="logFile",referencedColumnName="FileID")
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private LogFile logFile;

@@ -1,5 +1,6 @@
 package com.log.loggitor.controller;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,8 +18,19 @@ public class AppController {
 	@RequestMapping("/apps")
 	public Iterable<App> getApps() {
 		return AppRep.findAll();
-
     } 
+	@RequestMapping("/apps/defectApp")
+	public List<List<BigInteger>> getAppaa() {
+		return Arrays.asList(AppRep.DefectsByApp()) ;
+    } 
+	@RequestMapping("/apps/log")
+	public List<List<App>> getApp3() {
+		return Arrays.asList(AppRep.DefectsLog()) ;
+    }
+	@RequestMapping("/apps/defectSeverity")
+	public List<List<App>> getApp4() {
+		return Arrays.asList(AppRep.DefectsBySeverity()) ;
+    }
 	public List<App> getAllApps(){
 		return Arrays.asList(
 				new App("BLM","Custom"),

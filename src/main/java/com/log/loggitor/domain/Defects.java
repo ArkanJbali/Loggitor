@@ -22,7 +22,7 @@ public class Defects {
 	private long Def_id;
 	private String Severity,error_code;
 	private long D_sol;
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="solution",referencedColumnName="SolutionID")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Solutions solution;
@@ -33,6 +33,15 @@ public class Defects {
 	public Defects() {
 		super();
 	}
+	
+	public Defects(String severity, String error_code, long d_sol, Solutions solution) {
+		super();
+		Severity = severity;
+		this.error_code = error_code;
+		D_sol = d_sol;
+		this.solution = solution;
+	}
+
 	public Defects(String severity, String error_code, long D_sol) {
 		super();
 		Severity = severity;

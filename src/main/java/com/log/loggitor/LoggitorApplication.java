@@ -3,7 +3,7 @@ package com.log.loggitor;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +50,7 @@ public class LoggitorApplication {
 	@Bean
 	CommandLineRunner runner(){
         return args -> {
+        	
     		//split the path to take the file name
 			String fname="C:\\Users\\arkan\\Downloads\\log\\ARServer.log";
 			String strFileName=fname.substring(fname.lastIndexOf("\\")+1);
@@ -83,9 +84,9 @@ public class LoggitorApplication {
 				AppRep.save(app);
 				Defects defect = null;
 				if(b.getErrorName().equals("BL")) {
-				defect=new Defects(b.getAppSeverity(), b.getErrorNo(),sol1.getSolutionID());
+				defect=new Defects(b.getAppSeverity(), b.getErrorNo(),sol1.getSolutionID(),sol1);
 				}else if(b.getErrorName().equals("JF")){
-					defect=new Defects(b.getAppSeverity(), b.getErrorNo(),sol2.getSolutionID());
+					defect=new Defects(b.getAppSeverity(), b.getErrorNo(),sol2.getSolutionID(),sol2);
 				}
 				DefRep.save(defect);
 				//DefIRep.save(new DefectInstance(app.getAppID(), defect.getDef_id(), logFile.getFileID()));
@@ -105,10 +106,13 @@ public class LoggitorApplication {
 //        	List<App> apps=AppRep.findByAppName("BL");
 //        	for(App bb:apps)
 //        		System.out.println(bb.getAppName()+" "+bb.getAppType());
-//        	for(App app:AppRep.DefectsByApp()) {
-//        		logger.info(app.getAppID()+" "+app.getAppName());
-//        	}
-			
+        	
+			for(App app:AppRep.findByAppName("BL")) {
+        		logger.info(app.getAppName());
+        	}
+			for(Object app2:AppRep.DefectsLog()) {
+				System.out.println(app2);
+			}
         };
       } 
 
