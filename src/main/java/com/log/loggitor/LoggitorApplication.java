@@ -83,11 +83,14 @@ public class LoggitorApplication {
 				App app=new App(b.getErrorName(),b.getErrorType());
 				AppRep.save(app);
 				Defects defect = null;
+				
 				if(b.getErrorName().equals("BL")) {
 				defect=new Defects(b.getAppSeverity(), b.getErrorNo(),sol1.getSolutionID(),sol1);
-				}else if(b.getErrorName().equals("JF")){
+				}
+				else if(b.getErrorName().equals("JF")){
 					defect=new Defects(b.getAppSeverity(), b.getErrorNo(),sol2.getSolutionID(),sol2);
 				}
+				
 				DefRep.save(defect);
 				//DefIRep.save(new DefectInstance(app.getAppID(), defect.getDef_id(), logFile.getFileID()));
 				DefIRep.save(new DefectInstance(app.getAppID(), defect.getDef_id(), logFile.getFileID(), app, defect, logFile));
